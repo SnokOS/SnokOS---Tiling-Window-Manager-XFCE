@@ -1,10 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                          🚀 SnokOS Installer                        -->
+<!--                 🚀 SnokOS Tiling Window Manager Installer           -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
 <div align="center">
 
-<!-- شعار المشروع -->
 <img src="https://raw.githubusercontent.com/eythaann/Seelen-UI/master/documentation/images/logo.svg" alt="SnokOS Logo" width="140" height="140"/>
 
 # 🚀 SnokOS - Tiling Window Manager Installer
@@ -12,6 +11,9 @@
 ### ✨ مثبّت احترافي متعدد اللغات لـ Cortile على واجهة XFCE
 
 <p>
+  <a href="https://github.com/SnokOS/SnokOS---Tiling-Window-Manager-XFCE">
+    <img src="https://img.shields.io/badge/repo-SnokOS%2FTiling--Window--Manager-181717?style=for-the-badge&logo=github" alt="Repository"/>
+  </a>
   <img src="https://img.shields.io/badge/version-2.1-blue?style=for-the-badge&logo=github" alt="Version"/>
   <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License"/>
   <img src="https://img.shields.io/badge/platform-Linux-orange?style=for-the-badge&logo=linux" alt="Platform"/>
@@ -120,12 +122,10 @@
 
 ### ⚡ التثبيت السريع
 
-انسخ الأمر التالي في الطرفية:
-
 ```bash
 # استنساخ المستودع
-git clone https://github.com/YOUR_USERNAME/snokos-cortile-installer.git
-cd snokos-cortile-installer
+git clone https://github.com/SnokOS/SnokOS---Tiling-Window-Manager-XFCE.git
+cd SnokOS---Tiling-Window-Manager-XFCE
 
 # منح صلاحية التنفيذ
 chmod +x snokos_cortile_installer.sh
