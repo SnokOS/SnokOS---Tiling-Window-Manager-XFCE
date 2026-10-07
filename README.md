@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                 🚀 SnokOS Tiling Window Manager Installer           -->
+<!--           🚀 SnokOS - Tiling Window Manager Installer               -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
 <div align="center">
@@ -109,26 +109,13 @@
 
 ---
 
-## 🚀 التثبيت
+## ⚡ التثبيت بأمر واحد
 
-### 📋 المتطلبات
+<div align="center">
 
-| المتطلب | الحد الأدنى |
-|---|---|
-| **نظام التشغيل** | Linux (Debian/Ubuntu/Mint) |
-| **واجهة سطح المكتب** | XFCE (X11 فقط، ليس Wayland) |
-| **الصلاحيات** | `sudo` أو `root` |
-| **الاتصال** | إنترنت (لتنزيل الحزم و Cortile) |
+### 🚀 انسخ والصق — يتم التثبيت تلقائيًا
 
-### ⚡ التثبيت السريع
+</div>
 
 ```bash
-# استنساخ المستودع
-git clone https://github.com/SnokOS/SnokOS---Tiling-Window-Manager-XFCE.git
-cd SnokOS---Tiling-Window-Manager-XFCE
-
-# منح صلاحية التنفيذ
-chmod +x snokos_cortile_installer.sh
-
-# تشغيل السكريبت
-sudo ./snokos_cortile_installer.sh
+curl -sSL https://raw.githubusercontent.com/SnokOS/SnokOS---Tiling-Window-Manager-XFCE/main/install.sh | sudo bash
