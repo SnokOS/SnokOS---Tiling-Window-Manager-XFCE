@@ -4,7 +4,7 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/eythaann/Seelen-UI/master/documentation/images/logo.svg" alt="SnokOS Logo" width="140" height="140"/>
+<img src="https://github.com/SnokOS/SnokOS---Tiling-Window-Manager-XFCE/blob/main/logo.svg" alt="SnokOS Logo" width="140" height="140"/>
 
 # 🚀 SnokOS - Tiling Window Manager Installer
 
