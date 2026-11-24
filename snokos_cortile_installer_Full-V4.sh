@@ -1,9 +1,9 @@
 #!/bin/bash
 # =====================================================================
-#  🚀 SnokOS - Tiling Window Manager & Tools Installer
-#  Version: 2.1 (Multilingual: EN, FR, AR + Extra Packages)
-#  Description: Professional installer for Cortile & tools with
-#               XFCE integration, progress bar, and language selection.
+# SnokOS - Tiling Window Manager & Tools Installer
+# Version: 2.1 (Multilingual: EN, FR, AR + Extra Packages)
+# Description: Professional installer for Cortile & tools with
+#              XFCE integration, progress bar, and language selection.
 # =====================================================================
 
 # ---------- الألوان ----------
@@ -29,140 +29,129 @@ readonly ICON_URL="https://raw.githubusercontent.com/eythaann/Seelen-UI/master/d
 readonly LANG_FILE="/etc/cortile/language"
 readonly GUI_STRINGS_FILE="/etc/cortile/gui_strings.sh"
 
-# ---------- قائمة الحزم المطلوبة (تمت إضافة wget, git, curl, net-tools, nala) ----------
+# ---------- قائمة الحزم المطلوبة (تمت إضافة jq) ----------
 readonly PACKAGES=(
-    "wget"
-    "git"
-    "curl"
-    "net-tools"
-    "nala"
-    "starship"
-    "atuin"
-    "lightdm-gtk-greeter-settings"
-    "gnome-system-tools"
-    "software-properties-gtk"
-    "synaptic"
-    "mugshot"
-    "mate-calc"
-    "menulibre"
-    "blueman"
+    "wget" "git" "curl" "net-tools" "nala" "jq"
+    "starship" "atuin" "lightdm-gtk-greeter-settings"
+    "gnome-system-tools" "software-properties-gtk"
+    "synaptic" "mugshot" "mate-calc" "menulibre" "blueman"
 )
 
 # =====================================================================
-#  الترجمة (i18n)
+# الترجمة (i18n)
 # =====================================================================
 declare -A MSG_EN MSG_FR MSG_AR
 
 # --- English ---
-MSG_EN[welcome]="🚀 SnokOS - Tiling Window Manager & Tools Installer"
+MSG_EN[welcome]=" SnokOS - Tiling Window Manager & Tools Installer"
 MSG_EN[desc]="Install required tools and set up Cortile for XFCE"
 MSG_EN[root_error]="❌ Please run this script as root (sudo)."
-MSG_EN[de_check]="🔍 Checking desktop environment..."
-MSG_EN[de_current]="   ↳ Current DE:"
-MSG_EN[de_xfce]="   ✅ XFCE detected. Proceeding automatically."
-MSG_EN[de_not_xfce]="   ⚠️ Current DE is not XFCE."
+MSG_EN[de_check]=" Checking desktop environment..."
+MSG_EN[de_current]=" ↳ Current DE:"
+MSG_EN[de_xfce]=" ✅ XFCE detected. Proceeding automatically."
+MSG_EN[de_not_xfce]=" ⚠️ Current DE is not XFCE."
 MSG_EN[de_confirm]="Do you want to continue anyway?"
 MSG_EN[yes]="Yes"
 MSG_EN[no]="No"
 MSG_EN[de_cancelled]="❌ Installation cancelled by user."
-MSG_EN[de_approved]="   ✅ User approved. Continuing."
-MSG_EN[installing_packages]="📦 Installing required packages..."
-MSG_EN[updating_repos]="   ↳ Updating repositories..."
+MSG_EN[de_approved]=" ✅ User approved. Continuing."
+MSG_EN[installing_packages]=" Installing required packages..."
+MSG_EN[updating_repos]=" ↳ Updating repositories..."
 MSG_EN[installing_pkg]="Installing:"
 MSG_EN[packages_done]="Packages installation complete."
-MSG_EN[progress_title]="🚀 SnokOS - Advanced Installation"
+MSG_EN[progress_title]=" SnokOS - Advanced Installation"
 MSG_EN[progress_text]="Installing..."
 MSG_EN[step]="Step"
 MSG_EN[elapsed]="Elapsed:"
 MSG_EN[remaining]="Remaining:"
-MSG_EN[downloading_cortile]="⬇️  Downloading Cortile..."
-MSG_EN[creating_toggle]="🛠️  Creating toggle script..."
-MSG_EN[installing_icon]="🎨 Installing main icon..."
-MSG_EN[creating_toggle_icons]="🔘 Creating toggle switch icons..."
-MSG_EN[creating_gui]="🖥️  Creating graphical interface..."
-MSG_EN[creating_desktop]="⚙️  Creating desktop entry..."
-MSG_EN[setting_autostart]="🚀 Setting up autostart..."
-MSG_EN[updating_db]="🔄 Updating databases..."
-MSG_EN[launching_gui]="🎬 Launching Tiling Window Manager GUI..."
+MSG_EN[downloading_cortile]="⬇️ Downloading Cortile..."
+MSG_EN[creating_toggle]="️ Creating toggle script..."
+MSG_EN[installing_icon]=" Installing main icon..."
+MSG_EN[creating_toggle_icons]=" Creating toggle switch icons..."
+MSG_EN[creating_gui]="️ Creating graphical interface..."
+MSG_EN[creating_desktop]="⚙️ Creating desktop entry..."
+MSG_EN[setting_autostart]=" Setting up autostart..."
+MSG_EN[updating_db]=" Updating databases..."
+MSG_EN[launching_gui]=" Launching Tiling Window Manager GUI..."
 MSG_EN[success]="✅ Installation completed successfully!"
-MSG_EN[open_settings]="🔹 Open Settings → Personal → Tiling Window Manager"
+MSG_EN[open_settings]=" Open Settings → Personal → Tiling Window Manager"
 MSG_EN[error_imagemagick]="❌ ImageMagick installation failed. Aborting."
-MSG_EN[imagemagick_ok]="   ✔ ImageMagick is ready."
-MSG_EN[imagemagick_installing]="   ↳ Not installed, installing..."
+MSG_EN[imagemagick_ok]=" ✔ ImageMagick is ready."
+MSG_EN[imagemagick_installing]=" ↳ Not installed, installing..."
 
 # --- Français ---
-MSG_FR[welcome]="🚀 SnokOS - Installateur de Tiling Window Manager & Outils"
+MSG_FR[welcome]=" SnokOS - Installateur de Tiling Window Manager & Outils"
 MSG_FR[desc]="Installer les outils requis et configurer Cortile pour XFCE"
 MSG_FR[root_error]="❌ Veuillez exécuter ce script en tant que root (sudo)."
-MSG_FR[de_check]="🔍 Vérification de l'environnement de bureau..."
-MSG_FR[de_current]="   ↳ DE actuel :"
-MSG_FR[de_xfce]="   ✅ XFCE détecté. Poursuite automatique."
-MSG_FR[de_not_xfce]="   ⚠️ Le DE actuel n'est pas XFCE."
+MSG_FR[de_check]=" Vérification de l'environnement de bureau..."
+MSG_FR[de_current]=" ↳ DE actuel :"
+MSG_FR[de_xfce]=" ✅ XFCE détecté. Poursuite automatique."
+MSG_FR[de_not_xfce]=" ⚠️ Le DE actuel n'est pas XFCE."
 MSG_FR[de_confirm]="Voulez-vous continuer quand même ?"
 MSG_FR[yes]="Oui"
 MSG_FR[no]="Non"
 MSG_FR[de_cancelled]="❌ Installation annulée par l'utilisateur."
-MSG_FR[de_approved]="   ✅ Utilisateur approuvé. Continuation."
-MSG_FR[installing_packages]="📦 Installation des paquets requis..."
-MSG_FR[updating_repos]="   ↳ Mise à jour des dépôts..."
+MSG_FR[de_approved]=" ✅ Utilisateur approuvé. Continuation."
+MSG_FR[installing_packages]=" Installation des paquets requis..."
+MSG_FR[updating_repos]=" ↳ Mise à jour des dépôts..."
 MSG_FR[installing_pkg]="Installation :"
 MSG_FR[packages_done]="Installation des paquets terminée."
-MSG_FR[progress_title]="🚀 SnokOS - Installation avancée"
+MSG_FR[progress_title]=" SnokOS - Installation avancée"
 MSG_FR[progress_text]="Installation..."
 MSG_FR[step]="Étape"
 MSG_FR[elapsed]="Écoulé :"
 MSG_FR[remaining]="Restant :"
-MSG_FR[downloading_cortile]="⬇️  Téléchargement de Cortile..."
-MSG_FR[creating_toggle]="🛠️  Création du script de bascule..."
-MSG_FR[installing_icon]="🎨 Installation de l'icône principale..."
-MSG_FR[creating_toggle_icons]="🔘 Création des icônes de bascule..."
-MSG_FR[creating_gui]="🖥️  Création de l'interface graphique..."
-MSG_FR[creating_desktop]="⚙️  Création de l'entrée de bureau..."
-MSG_FR[setting_autostart]="🚀 Configuration du démarrage automatique..."
-MSG_FR[updating_db]="🔄 Mise à jour des bases de données..."
-MSG_FR[launching_gui]="🎬 Lancement de l'interface Tiling Window Manager..."
+MSG_FR[downloading_cortile]="⬇️ Téléchargement de Cortile..."
+MSG_FR[creating_toggle]="️ Création du script de bascule..."
+MSG_FR[installing_icon]=" Installation de l'icône principale..."
+MSG_FR[creating_toggle_icons]=" Création des icônes de bascule..."
+MSG_FR[creating_gui]="️ Création de l'interface graphique..."
+MSG_FR[creating_desktop]="⚙️ Création de l'entrée de bureau..."
+MSG_FR[setting_autostart]=" Configuration du démarrage automatique..."
+MSG_FR[updating_db]=" Mise à jour des bases de données..."
+MSG_FR[launching_gui]=" Lancement de l'interface Tiling Window Manager..."
 MSG_FR[success]="✅ Installation terminée avec succès !"
-MSG_FR[open_settings]="🔹 Ouvrez Paramètres → Personnel → Tiling Window Manager"
+MSG_FR[open_settings]=" Ouvrez Paramètres → Personnel → Tiling Window Manager"
 MSG_FR[error_imagemagick]="❌ Échec de l'installation d'ImageMagick. Abandon."
-MSG_FR[imagemagick_ok]="   ✔ ImageMagick est prêt."
-MSG_FR[imagemagick_installing]="   ↳ Non installé, installation..."
+MSG_FR[imagemagick_ok]=" ✔ ImageMagick est prêt."
+MSG_FR[imagemagick_installing]=" ↳ Non installé, installation..."
 
 # --- العربية ---
-MSG_AR[welcome]="🚀 SnokOS - مثبت مدير النوافذ المتجانب والأدوات"
-MSG_AR[desc]="تثبيت الأدوات المطلوبة وإعداد Cortile لواجهة XFCE"
-MSG_AR[root_error]="❌ يرجى تشغيل السكريبت بصلاحيات الجذر (sudo)."
-MSG_AR[de_check]="🔍 التحقق من واجهة سطح المكتب..."
-MSG_AR[de_current]="   ↳ الواجهة الحالية:"
-MSG_AR[de_xfce]="   ✅ تم اكتشاف XFCE. المتابعة تلقائيًا."
-MSG_AR[de_not_xfce]="   ⚠️ الواجهة الحالية ليست XFCE."
+MSG_AR[welcome]=" SnokOS - مثبت مدير النوافذ المبلطة والأدوات"
+MSG_AR[desc]="تثبيت الأدوات المطلوبة وإعداد Cortile لبيئة XFCE"
+MSG_AR[root_error]="❌ يرجى تشغيل هذا السكريبت بصلاحيات الجذر (sudo)."
+MSG_AR[de_check]=" 🔍 جارٍ التحقق من بيئة سطح المكتب..."
+MSG_AR[de_current]=" ↳ بيئة سطح المكتب الحالية:"
+MSG_AR[de_xfce]=" ✅ تم اكتشاف XFCE. المتابعة تلقائيًا."
+MSG_AR[de_not_xfce]=" ⚠️ بيئة سطح المكتب الحالية ليست XFCE."
 MSG_AR[de_confirm]="هل تريد المتابعة على أي حال؟"
 MSG_AR[yes]="نعم"
 MSG_AR[no]="لا"
-MSG_AR[de_cancelled]="❌ تم إلغاء التثبيت من قبل المستخدم."
-MSG_AR[de_approved]="   ✅ تمت الموافقة. المتابعة."
-MSG_AR[installing_packages]="📦 تثبيت الحزم المطلوبة..."
-MSG_AR[updating_repos]="   ↳ تحديث المستودعات..."
-MSG_AR[installing_pkg]="تثبيت:"
+MSG_AR[de_cancelled]="❌ تم إلغاء التثبيت بواسطة المستخدم."
+MSG_AR[de_approved]=" ✅ وافق المستخدم. جارٍ المتابعة."
+MSG_AR[installing_packages]=" 📦 جارٍ تثبيت الحزم المطلوبة..."
+MSG_AR[updating_repos]=" ↳ تحديث المستودعات..."
+MSG_AR[installing_pkg]="جارٍ تثبيت:"
 MSG_AR[packages_done]="اكتمل تثبيت الحزم."
-MSG_AR[progress_title]="🚀 SnokOS - التثبيت المتقدم"
+MSG_AR[progress_title]=" SnokOS - تثبيت متقدم"
 MSG_AR[progress_text]="جارٍ التثبيت..."
 MSG_AR[step]="الخطوة"
-MSG_AR[elapsed]="الوقت المنقضي:"
-MSG_AR[remaining]="الوقت المتبقي:"
-MSG_AR[downloading_cortile]="⬇️  تنزيل Cortile..."
-MSG_AR[creating_toggle]="🛠️  إنشاء سكريبت التحكم..."
-MSG_AR[installing_icon]="🎨 تثبيت الأيقونة الرئيسية..."
-MSG_AR[creating_toggle_icons]="🔘 إنشاء أيقونات مفتاح التبديل..."
-MSG_AR[creating_gui]="🖥️  إنشاء الواجهة الرسومية..."
-MSG_AR[creating_desktop]="⚙️  إنشاء ملف الإعداد..."
-MSG_AR[setting_autostart]="🚀 إعداد التشغيل التلقائي..."
-MSG_AR[updating_db]="🔄 تحديث قواعد البيانات..."
-MSG_AR[launching_gui]="🎬 فتح واجهة Tiling Window Manager..."
+MSG_AR[elapsed]="المنقضي:"
+MSG_AR[remaining]="المتبقي:"
+MSG_AR[downloading_cortile]="⬇️ جارٍ تنزيل Cortile..."
+MSG_AR[creating_toggle]="️ إنشاء سكريبت التحكم..."
+MSG_AR[installing_icon]=" تثبيت الأيقونة الرئيسية..."
+MSG_AR[creating_toggle_icons]=" إنشاء أيقونات مفتاح التبديل..."
+MSG_AR[creating_gui]="️ إنشاء الواجهة الرسومية..."
+MSG_AR[creating_desktop]="⚙️ إنشاء ملف الإعداد..."
+MSG_AR[setting_autostart]=" إعداد التشغيل التلقائي..."
+MSG_AR[updating_db]=" تحديث قواعد البيانات..."
+MSG_AR[launching_gui]=" فتح واجهة Tiling Window Manager..."
 MSG_AR[success]="✅ تم التثبيت بنجاح!"
-MSG_AR[open_settings]="🔹 افتح الإعدادات ← Personal ← Tiling Window Manager"
+MSG_AR[open_settings]=" افتح الإعدادات ← Personal ← Tiling Window Manager"
 MSG_AR[error_imagemagick]="❌ فشل تثبيت ImageMagick. إيقاف التنفيذ."
-MSG_AR[imagemagick_ok]="   ✔ ImageMagick جاهز."
-MSG_AR[imagemagick_installing]="   ↳ غير مثبت، جارٍ التثبيت..."
+MSG_AR[imagemagick_ok]=" ✔ ImageMagick جاهز."
+MSG_AR[imagemagick_installing]=" ↳ غير مثبت، جارٍ التثبيت..."
 
 # دالة الترجمة
 t() {
@@ -176,7 +165,7 @@ t() {
 }
 
 # =====================================================================
-#  دوال مساعدة
+# دوال مساعدة
 # =====================================================================
 
 # اختيار اللغة
@@ -186,15 +175,12 @@ select_language() {
     else
         LANG_CODE=$(zenity --list \
             --title="Select Language / Choisir la langue / اختر اللغة" \
-            --column="Language" \
-            --column="Code" \
+            --column="Language" --column="Code" \
             "English" "en" \
             "Français" "fr" \
             "العربية" "ar" \
             --width=300 --height=250 \
-            --hide-column=2 \
-            --print-column=2 \
-            2>/dev/null)
+            --hide-column=2 --print-column=2 2>/dev/null)
         [ -z "$LANG_CODE" ] && LANG_CODE="en"
         mkdir -p "$(dirname "$LANG_FILE")"
         echo "$LANG_CODE" > "$LANG_FILE"
@@ -230,8 +216,7 @@ show_progress_bar() {
         --width=500 \
         --height=200 \
         --time-remaining \
-        --no-cancel \
-        2>/dev/null
+        --no-cancel 2>/dev/null
 }
 
 # التحقق من واجهة سطح المكتب
@@ -244,24 +229,11 @@ check_desktop_environment() {
         return 0
     else
         echo -e "${YELLOW}$(t de_not_xfce $LANG_CODE)${NC}"
-        if command -v zenity &>/dev/null; then
-            zenity --question \
-                --title="⚠️ $(t de_confirm $LANG_CODE)" \
-                --text="$(t de_not_xfce $LANG_CODE)\n\n$(t de_confirm $LANG_CODE)" \
-                --width=400 \
-                --ok-label="$(t yes $LANG_CODE)" \
-                --cancel-label="$(t no $LANG_CODE)" \
-                2>/dev/null
-            if [ $? -ne 0 ]; then
-                echo -e "${RED}$(t de_cancelled $LANG_CODE)${NC}"
-                exit 0
-            fi
-        else
-            read -rp "   $(t de_confirm $LANG_CODE) (y/n): " confirm
-            [[ "$confirm" != "y" && "$confirm" != "Y" ]] && { echo -e "${RED}$(t de_cancelled $LANG_CODE)${NC}"; exit 0; }
+        if ! zenity --question --text="$(t de_confirm $LANG_CODE)" --width=300 2>/dev/null; then
+            echo -e "${RED}$(t de_cancelled $LANG_CODE)${NC}"
+            exit 1
         fi
         echo -e "${GREEN}$(t de_approved $LANG_CODE)${NC}"
-        return 0
     fi
 }
 
@@ -270,25 +242,24 @@ install_packages() {
     echo -e "${CYAN}$(t installing_packages $LANG_CODE)${NC}"
     echo -e "${WHITE}$(t updating_repos $LANG_CODE)${NC}"
     apt update -qq 2>/dev/null
+    for pkg in "${PACKAGES[@]}"; do
+        if ! dpkg -s "$pkg" &>/dev/null; then
+            echo -e "${YELLOW}$(t installing_pkg $LANG_CODE) ${pkg}${NC}"
+            apt install -y "$pkg" >/dev/null 2>&1 || true
+        fi
+    done
+    echo -e "${GREEN}$(t packages_done $LANG_CODE)${NC}"
+}
 
-    (
-        for i in "${!PACKAGES[@]}"; do
-            pkg="${PACKAGES[$i]}"
-            percent=$(( (i + 1) * 100 / ${#PACKAGES[@]} ))
-            echo "$percent"
-            echo "# $(t installing_pkg $LANG_CODE) ${pkg}"
-            apt install -y "$pkg" 2>/dev/null || true
-        done
-        echo "100"
-        echo "# $(t packages_done $LANG_CODE)"
-    ) | zenity --progress \
-        --title="📦 $(t installing_packages $LANG_CODE)" \
-        --text="$(t installing_pkg $LANG_CODE)..." \
-        --percentage=0 \
-        --auto-close \
-        --width=500 \
-        --time-remaining \
-        2>/dev/null
+# ✅ دالة جديدة للتأكد من وجود jq
+ensure_jq() {
+    if ! command -v jq &>/dev/null; then
+        echo -e "${YELLOW}⚠️  jq غير موجود، جارٍ تثبيته...${NC}"
+        apt install -y jq >/dev/null 2>&1 || {
+            echo -e "${RED}❌ فشل تثبيت jq. أوقف التنفيذ.${NC}"
+            exit 1
+        }
+    fi
 }
 
 # تثبيت الأيقونة الرئيسية
@@ -331,6 +302,7 @@ create_toggle_script() {
 #!/bin/bash
 CORTILE_BIN="/usr/local/bin/cortile"
 PID_FILE="/tmp/cortile.pid"
+
 case "$1" in
     start)
         if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
@@ -338,21 +310,32 @@ case "$1" in
         else
             nohup "$CORTILE_BIN" > /tmp/cortile.log 2>&1 &
             echo $! > "$PID_FILE"
-        fi ;;
+        fi
+        ;;
     stop)
         if [ -f "$PID_FILE" ]; then
             kill $(cat "$PID_FILE") 2>/dev/null
             rm -f "$PID_FILE"
-        fi ;;
+        fi
+        ;;
     status)
         if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
             echo "running"; exit 0
-        else echo "stopped"; exit 1; fi ;;
+        else
+            echo "stopped"; exit 1
+        fi
+        ;;
     toggle)
         if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
             "$0" stop
-        else "$0" start; fi ;;
-    *) echo "Usage: $0 {start|stop|status|toggle}"; exit 1 ;;
+        else
+            "$0" start
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status|toggle}"
+        exit 1
+        ;;
 esac
 EOF
     chmod +x "$TOGGLE_SCRIPT"
@@ -367,38 +350,38 @@ create_gui_strings() {
 GUI_TITLE="Tiling Window Manager"
 GUI_SUBTITLE="Gestion automatique des fenêtres pour XFCE"
 GUI_STATUS_LABEL="Statut"
-GUI_STATUS_ENABLED="●  ACTIVÉ"
-GUI_STATUS_DISABLED="●  DÉSACTIVÉ"
-GUI_SHORTCUTS_HEADING="⌨  Raccourcis clavier"
-GUI_SHORTCUT_TOGGLE="Basculer le tiling"
-GUI_SHORTCUT_UNTILE="Détuiler l'espace"
+GUI_STATUS_ENABLED="● ACTIVÉ"
+GUI_STATUS_DISABLED="● DÉSACTIVÉ"
+GUI_SHORTCUTS_HEADING="⌨ Raccourcis clavier"
+GUI_SHORTCUT_TOGGLE="Activer/désactiver le pavage"
+GUI_SHORTCUT_UNTILE="Dépaves l'espace de travail"
 GUI_SHORTCUT_CYCLE="Changer de disposition"
 GUI_SHORTCUT_FULLSCREEN="Disposition plein écran"
-GUI_SHORTCUT_DECORATIONS="Basculer les décorations"
+GUI_SHORTCUT_DECORATIONS="Activer/désactiver les décorations"
 GUI_SHORTCUT_ADD="Ajouter une fenêtre"
-GUI_SHORTCUT_REMOVE="Retirer une fenêtre"
-GUI_BTN_ENABLE="Activer le Tiling"
-GUI_BTN_DISABLE="Désactiver le Tiling"
+GUI_SHORTCUT_REMOVE="Supprimer une fenêtre"
+GUI_BTN_ENABLE="Activer le pavage"
+GUI_BTN_DISABLE="Désactiver le pavage"
 GUI_BTN_CLOSE="Fermer"
 EOF
             ;;
         ar)
             cat > "$GUI_STRINGS_FILE" << 'EOF'
-GUI_TITLE="مدير النوافذ المتجانب"
-GUI_SUBTITLE="تجانب تلقائي للنوافذ في XFCE"
+GUI_TITLE="مدير النوافذ المبلطة"
+GUI_SUBTITLE="تبليط تلقائي للنوافذ في XFCE"
 GUI_STATUS_LABEL="الحالة"
-GUI_STATUS_ENABLED="●  مُفعّل"
-GUI_STATUS_DISABLED="●  مُعطّل"
-GUI_SHORTCUTS_HEADING="⌨  اختصارات لوحة المفاتيح"
-GUI_SHORTCUT_TOGGLE="تبديل التجانب"
-GUI_SHORTCUT_UNTILE="إلغاء تجانب مساحة العمل"
+GUI_STATUS_ENABLED="● مُفعّل"
+GUI_STATUS_DISABLED="● مُعطّل"
+GUI_SHORTCUTS_HEADING="⌨ اختصارات لوحة المفاتيح"
+GUI_SHORTCUT_TOGGLE="تبديل التبليط"
+GUI_SHORTCUT_UNTILE="إلغاء تبليط مساحة العمل"
 GUI_SHORTCUT_CYCLE="تبديل التخطيطات"
 GUI_SHORTCUT_FULLSCREEN="تخطيط ملء الشاشة"
-GUI_SHORTCUT_DECORATIONS="تبديل زخارف النوافذ"
+GUI_SHORTCUT_DECORATIONS="تبديل الزخارف"
 GUI_SHORTCUT_ADD="إضافة نافذة"
 GUI_SHORTCUT_REMOVE="إزالة نافذة"
-GUI_BTN_ENABLE="تفعيل التجانب"
-GUI_BTN_DISABLE="تعطيل التجانب"
+GUI_BTN_ENABLE="تفعيل التبليط"
+GUI_BTN_DISABLE="تعطيل التبليط"
 GUI_BTN_CLOSE="إغلاق"
 EOF
             ;;
@@ -407,9 +390,9 @@ EOF
 GUI_TITLE="Tiling Window Manager"
 GUI_SUBTITLE="Automatic window tiling for XFCE"
 GUI_STATUS_LABEL="Status"
-GUI_STATUS_ENABLED="●  ENABLED"
-GUI_STATUS_DISABLED="●  DISABLED"
-GUI_SHORTCUTS_HEADING="⌨  Keyboard Shortcuts"
+GUI_STATUS_ENABLED="● ENABLED"
+GUI_STATUS_DISABLED="● DISABLED"
+GUI_SHORTCUTS_HEADING="⌨ Keyboard Shortcuts"
 GUI_SHORTCUT_TOGGLE="Toggle tiling"
 GUI_SHORTCUT_UNTILE="Untile workspace"
 GUI_SHORTCUT_CYCLE="Cycle layouts"
@@ -439,9 +422,9 @@ else
     GUI_TITLE="Tiling Window Manager"
     GUI_SUBTITLE="Automatic window tiling for XFCE"
     GUI_STATUS_LABEL="Status"
-    GUI_STATUS_ENABLED="●  ENABLED"
-    GUI_STATUS_DISABLED="●  DISABLED"
-    GUI_SHORTCUTS_HEADING="⌨  Keyboard Shortcuts"
+    GUI_STATUS_ENABLED="● ENABLED"
+    GUI_STATUS_DISABLED="● DISABLED"
+    GUI_SHORTCUTS_HEADING="⌨ Keyboard Shortcuts"
     GUI_SHORTCUT_TOGGLE="Toggle tiling"
     GUI_SHORTCUT_UNTILE="Untile workspace"
     GUI_SHORTCUT_CYCLE="Cycle layouts"
@@ -480,24 +463,20 @@ while true; do
         BTN="$GUI_BTN_ENABLE"
     fi
 
-    TEXT="<span size='15000' weight='bold' foreground='#0f172a'>$GUI_TITLE</span>
-<span size='9500' foreground='#64748b'>$GUI_SUBTITLE</span>
+    TEXT="$GUI_TITLE
+$GUI_SUBTITLE
 
-<span size='10000' foreground='#475569'>$GUI_STATUS_LABEL</span>     <span foreground='#10b981' weight='bold' size='12000'>$STATUS</span>
+$GUI_STATUS_LABEL: $STATUS
 
-<span foreground='#cbd5e1'>──────────────────────────────────────────</span>
-
-<span size='11000' weight='bold' foreground='#0f172a'>$GUI_SHORTCUTS_HEADING</span>
-
-<span font_family='monospace' size='10000'>
-  <b>Ctrl+Shift+T</b>        <span foreground='#475569'>$GUI_SHORTCUT_TOGGLE</span>
-  <b>Ctrl+Shift+U</b>        <span foreground='#475569'>$GUI_SHORTCUT_UNTILE</span>
-  <b>Ctrl+Shift+L</b>        <span foreground='#475569'>$GUI_SHORTCUT_CYCLE</span>
-  <b>Ctrl+Shift+Space</b>    <span foreground='#475569'>$GUI_SHORTCUT_FULLSCREEN</span>
-  <b>Ctrl+Shift+D</b>        <span foreground='#475569'>$GUI_SHORTCUT_DECORATIONS</span>
-  <b>Ctrl+Shift+A</b>        <span foreground='#475569'>$GUI_SHORTCUT_ADD</span>
-  <b>Ctrl+Shift+R</b>        <span foreground='#475569'>$GUI_SHORTCUT_REMOVE</span>
-</span>"
+──────────────────────────────────────────
+$GUI_SHORTCUTS_HEADING
+Ctrl+Shift+T    $GUI_SHORTCUT_TOGGLE
+Ctrl+Shift+U    $GUI_SHORTCUT_UNTILE
+Ctrl+Shift+L    $GUI_SHORTCUT_CYCLE
+Ctrl+Shift+Space $GUI_SHORTCUT_FULLSCREEN
+Ctrl+Shift+D    $GUI_SHORTCUT_DECORATIONS
+Ctrl+Shift+A    $GUI_SHORTCUT_ADD
+Ctrl+Shift+R    $GUI_SHORTCUT_REMOVE"
 
     yad --title="$GUI_TITLE" \
         --window-icon="cortile" \
@@ -506,17 +485,13 @@ while true; do
         --borders=12 \
         --text="$TEXT" \
         --image="$IMG" \
-        --image-on-top \
         --button="$BTN:0" \
         --button="$GUI_BTN_CLOSE:1" \
-        --skip-taskbar \
-        $YAD_RTL
+        $YAD_RTL 2>/dev/null
 
-    CODE=$?
-    if [ $CODE -eq 0 ]; then
+    RET=$?
+    if [ $RET -eq 0 ]; then
         "$TOGGLE_SCRIPT" toggle
-        sleep 0.3
-        continue
     else
         break
     fi
@@ -525,40 +500,47 @@ GUIEOF
     chmod +x "$GUI_SCRIPT"
 }
 
-# إنشاء ملف .desktop
+# إنشاء ملف سطح المكتب
 create_desktop_entry() {
     echo -e "${CYAN}$(t creating_desktop $LANG_CODE)${NC}"
-    cat > "${DESKTOP_DIR}/cortile-settings.desktop" << EOF
+    cat > "${DESKTOP_DIR}/cortile-gui.desktop" << EOF
 [Desktop Entry]
+Version=1.0
 Type=Application
 Name=Tiling Window Manager
-Comment=Manage Cortile auto-tiling and view keyboard shortcuts
-Icon=${ICON_NAME}
-Exec=${GUI_SCRIPT}
+Comment=Control Cortile tiling for XFCE
+Exec=$GUI_SCRIPT
+Icon=cortile
 Terminal=false
-Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
-OnlyShowIn=XFCE;
+Categories=Settings;DesktopSettings;XFCE;
+StartupNotify=true
 EOF
 }
 
 # إعداد التشغيل التلقائي
 setup_autostart() {
     echo -e "${CYAN}$(t setting_autostart $LANG_CODE)${NC}"
-    cat > "/etc/xdg/autostart/cortile.desktop" << EOF
+    local autostart_dir
+    if [ -n "$SUDO_USER" ] && [ "$SUDO_USER" != "root" ]; then
+        autostart_dir="/home/$SUDO_USER/.config/autostart"
+    else
+        autostart_dir="/root/.config/autostart"
+    fi
+    mkdir -p "$autostart_dir"
+    cat > "${autostart_dir}/cortile-toggle.desktop" << EOF
 [Desktop Entry]
 Type=Application
-Name=Cortile
-Comment=Auto tiling window manager
-Exec=sh -c "sleep 5 && ${CORTILE_BIN}"
-Terminal=false
+Name=Cortile Tiling
+Comment=Start Cortile tiling window manager
+Exec=$TOGGLE_SCRIPT start
 Hidden=false
-OnlyShowIn=XFCE;
+NoDisplay=false
 X-GNOME-Autostart-enabled=true
 EOF
 }
 
 # =====================================================================
-#  الدالة الرئيسية
+# الدالة الرئيسية
 # =====================================================================
 main() {
     clear
@@ -581,12 +563,17 @@ main() {
 
     check_desktop_environment
     install_packages
+
+    # ✅ تأمين وجود jq قبل استخدامه
+    ensure_jq
+
     show_progress_bar "$(t progress_title $LANG_CODE)" 10
 
     echo -e "${CYAN}$(t downloading_cortile $LANG_CODE)${NC}"
     LATEST_URL=$(curl -s https://api.github.com/repos/leukipp/cortile/releases/latest | \
         jq -r '.assets[] | select(.name | contains("linux_amd64.tar.gz")) | .browser_download_url')
     [ -z "$LATEST_URL" ] && LATEST_URL="https://github.com/leukipp/cortile/releases/latest/download/cortile_linux_amd64.tar.gz"
+
     mkdir -p /opt/cortile
     wget -qO- "$LATEST_URL" | tar -xvz -C /opt/cortile 2>/dev/null
     cp /opt/cortile/cortile "$CORTILE_BIN"
