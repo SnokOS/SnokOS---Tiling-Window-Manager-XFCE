@@ -29,9 +29,10 @@ readonly ICON_URL="https://raw.githubusercontent.com/eythaann/Seelen-UI/master/d
 readonly LANG_FILE="/etc/cortile/language"
 readonly GUI_STRINGS_FILE="/etc/cortile/gui_strings.sh"
 
-# ---------- قائمة الحزم المطلوبة (تمت إضافة jq) ----------
+# ---------- قائمة الحزم المطلوبة (مُحدّثة بالكامل) ----------
 readonly PACKAGES=(
     "wget" "git" "curl" "net-tools" "nala" "jq"
+    "zenity" "yad" "librsvg2-bin" "imagemagick" "desktop-file-utils"
     "starship" "atuin" "lightdm-gtk-greeter-settings"
     "gnome-system-tools" "software-properties-gtk"
     "synaptic" "mugshot" "mate-calc" "menulibre" "blueman"
@@ -251,12 +252,31 @@ install_packages() {
     echo -e "${GREEN}$(t packages_done $LANG_CODE)${NC}"
 }
 
-# ✅ دالة جديدة للتأكد من وجود jq
+# ✅ دالة للتأكد من وجود jq
 ensure_jq() {
     if ! command -v jq &>/dev/null; then
         echo -e "${YELLOW}⚠️  jq غير موجود، جارٍ تثبيته...${NC}"
         apt install -y jq >/dev/null 2>&1 || {
             echo -e "${RED}❌ فشل تثبيت jq. أوقف التنفيذ.${NC}"
+            exit 1
+        }
+    fi
+}
+
+# ✅ دالة للتأكد من وجود أدوات الواجهة الرسومية
+ensure_gui_deps() {
+    local missing=()
+    for cmd_pkg in "yad:yad" "zenity:zenity" "rsvg-convert:librsvg2-bin" "convert:imagemagick"; do
+        local cmd="${cmd_pkg%%:*}"
+        local pkg="${cmd_pkg##*:}"
+        if ! command -v "$cmd" &>/dev/null; then
+            missing+=("$pkg")
+        fi
+    done
+    if [ ${#missing[@]} -gt 0 ]; then
+        echo -e "${YELLOW}⚠️  أدوات ناقصة: ${missing[*]}. جارٍ تثبيتها...${NC}"
+        apt install -y "${missing[@]}" >/dev/null 2>&1 || {
+            echo -e "${RED}❌ فشل تثبيت: ${missing[*]}. أوقف التنفيذ.${NC}"
             exit 1
         }
     fi
@@ -566,6 +586,9 @@ main() {
 
     # ✅ تأمين وجود jq قبل استخدامه
     ensure_jq
+
+    # ✅ تأمين وجود أدوات الواجهة الرسومية (yad, zenity, rsvg, convert)
+    ensure_gui_deps
 
     show_progress_bar "$(t progress_title $LANG_CODE)" 10
 
