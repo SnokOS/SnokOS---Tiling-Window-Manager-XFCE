@@ -19,7 +19,8 @@ readonly NC='\033[0m'
 # 🌐 روابط
 readonly REPO="SnokOS/SnokOS---Tiling-Window-Manager-XFCE"
 readonly BRANCH="main"
-readonly MAIN_SCRIPT_URL="https://raw.githubusercontent.com/${REPO}/${BRANCH}/snokos_cortile_installer.sh"
+#readonly MAIN_SCRIPT_URL="https://raw.githubusercontent.com/${REPO}/${BRANCH}/snokos_cortile_installer.sh"
+readonly MAIN_SCRIPT_URL="https://raw.githubusercontent.com/${REPO}/${BRANCH}/snokos_cortile_installer_Full-V4.sh"
 readonly TMP_SCRIPT="/tmp/snokos_installer_$$.sh"
 
 # 🖨️ دالة عرض الشعار
